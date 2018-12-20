@@ -20,4 +20,6 @@ Professor Smith sat down with us last week and told us a little about what she i
 
 We use React, so let's create a React application. It sounds like we need a list of technologies, and we want to be able to increment a counter for each technology. We know it is easy to make mistakes, so let's add the ability to decrement, too. Keep in mind, there can never be a negative count, so let's be sure to not allow a decrement below 0. [MLab](https://mlab.com/) is a good choice for MongoDB hosting, but feel free to use the provider and DB of your choice.
 
+**styling bonus**: You can try using [plus circle](https://fontawesome.com/icons/plus-circle?style=solid) and [minus circle](https://fontawesome.com/icons/minus-circle?style=solid) icons from [font-awesome](https://fontawesome.com/start) for some nice icons for the increment and decrement. If you have another icon solution you like (glyphicons, material-ui), feel free to try that instead.
+
 [Let us know](https://github.com/un-loop/PollProject/blob/master/PART2.md) when you are finished.
