@@ -1,4 +1,4 @@
-# Polling App: Part2
+# Polling App: Part 2
 
 ## Application Success
 
