@@ -1,0 +1,35 @@
+{
+  "name": "pollproject",
+  "version": "1.0.0",
+  "description": "Excercise in creating a polling project",
+  "main": "./server/server.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/un-loop/PollProject.git"
+  },
+  "author": "Michael Armes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/un-loop/PollProject/issues"
+  },
+  "homepage": "https://github.com/un-loop/PollProject#readme",
+  "dependencies": {
+    "aws-sdk": "^2.395.0",
+    "axios": "^0.18.0",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-mount": "^4.0.0",
+    "koa-resource-router": "^0.4.0",
+    "koa-static": "^5.0.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "webpack": "^4.28.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "npm-run-all": "^4.1.5"
+  }
+}
