@@ -27,18 +27,17 @@ async function ensureTable() {
     var first = tableExists.bind(this);
     var second = createTable.bind(this);
 
-    var promise = first();
-    await promise.catch( (err) => {
-        second();
-    }
-        );
+    await first().catch( (err) => {
+        return second();
+    });
 }
 
 function getUpdateProperties(entity) {
     let map = {};
 
     let count = 0;
-    for (let prop of entity) {
+    for (let prop in entity) {
+        if ([this.key, this.rangeKey].indexOf(prop) >= 0) continue;
         let param = "#p" + count;
         let value = ":v" + count++;
         map[prop] = {
@@ -79,8 +78,8 @@ function getUpdateItemInput(entity, partitionKey, sortKey) {
         Key: key
     };
 
-    let map = getUpdateProperties(entity);
-    result.UpdateExpression = getUpdateExpression(map);
+    let map = getUpdateProperties.call(this, entity);
+    result.UpdateExpression = getUpdateExpression.call(this,map);
     if (!result.UpdateExpression) return undefined;
 
     result.ExpressionAttributeValues = {};
@@ -175,7 +174,7 @@ async function update(
         key[this.rangeKey] = sortKey;
     }
 
-    let params = getUpdateItemInput(
+    let params = getUpdateItemInput.call(this,
         entity,
         partitionKey,
         sortKey

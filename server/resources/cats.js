@@ -1,5 +1,5 @@
-const database = require("../database");
-const cats = new database(this);
+const table = require("../database");
+const cats = new table(this);
 
 /*[
     {
