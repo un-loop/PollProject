@@ -57,7 +57,7 @@ exports.index = function *(next){
   exports.create = function *(next){
     yield next;
     if (!this.request.body || !this.request.body.name) this.throw(400, '.name required');
-    let cat = {name, owner, age} = this.request.body;
+    let cat = (({name, owner, age}) => ({name, owner, age}))(this.request.body);
     yield cats.create(cat);
     this.status = 201;
     this.body = 'added!';
