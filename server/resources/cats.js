@@ -62,3 +62,21 @@ exports.index = function *(next){
     this.status = 201;
     this.body = 'added!';
   };
+
+  /**
+   *
+   * DELETE a cat
+   *
+   * exports.destroy = function*(next) {
+   *   //implement me!
+   * }
+   */
+
+    /**
+   *
+   * UPDATE a cat
+   *
+   * exports.update = function*(next) {
+   *   //implement me!
+   * }
+   */
