@@ -5,10 +5,12 @@ const Resource = require('koa-resource-router');
 const path = require('path');
 const body = require('koa-bodyparser');
 const wrapper = require('./middleware-wrapper')
+const decode = require('./decode-params')
 
 const bodyMiddleware = wrapper(body()); //need to wrap because koa-resource-router expects a generator pattern
                                         //middleware, whereas koa-bodyparser provides an async pattern
-const cats = new Resource('cats', bodyMiddleware, require('./resources/cats'));
+const decodeMiddleware = wrapper(decode());
+const cats = new Resource('cats', bodyMiddleware, decodeMiddleware, require('./resources/cats'));
 const koaApi = new koa();
 koaApi.use(cats.middleware());
 
