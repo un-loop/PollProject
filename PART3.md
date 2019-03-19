@@ -34,7 +34,7 @@ Frequently, when we have tables of data, we need to take certain steps in presen
 | HTML5     |     2 |
 | Angular 2 |     3 |
 
-It is note immediately clear when looking at the list that Angular and Angular 2 are listed out as separate items. We have to read every item in the list to determine this. Now, imagine that the list is 100's of items long! Not only are we sure to make mistakes, it is cumbersome to use. Two methods of addressing being able to quickly find items in a list are *sorting* and *searching*. A search typical invovles having one or more input controls to specify a search to complete, and some method of display the results of the search, usually in a table. Here, you have been asked to write a *filter*. A filter is simply a search that is performed, "in-place". That is to say, the search is applied on top of an already shown set of data to limit the data shown.
+It is note immediately clear when looking at the list that Angular and Angular 2 are listed out as separate items. We have to read every item in the list to determine this. Now, imagine that the list is 100's of items long! Not only are we sure to make mistakes, such a table is cumbersome to use. Two methods of addressing being able to quickly find items in a list are *sorting* and *searching*. A search typical invovles having one or more input controls to specify a search to complete, and some method of display the results of the search, usually in a table. Here, you have been asked to write a *filter*. A filter is simply a search that is performed, "in-place". That is to say, the search is applied on top of an already shown set of data to limit the data shown.
 
 ### Sorting
 
