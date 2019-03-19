@@ -20,6 +20,8 @@ We also suggested adding a filter, and she though this was a great idea. There s
 filtering, any text entered into the input box will serve as a live filter on the technology list. Also, all other functionality (add, delete, increment, decrement) should
 still function while the filter is active. Since she doesn't care about casing, the filter should be case-insensitive as well. There should be a "clear" button that shows when the filter is active that will turn filtering off.
 
+[Let us know](https://github.com/un-loop/PollProject/blob/master/PART4.md) when you are done.
+
 ## Notes
 
 Frequently, when we have tables of data, we need to take certain steps in presenting that data to a user so that the data is easy to read and understand. Consider for instance, the following:
@@ -65,7 +67,7 @@ In this manner, `sort()` can handle all sorts of arrays: arrays of numbers, of s
 
 The compromise default compare function they arrived at is this: Take the two items in the array being compared and turn them into strings, with 1 becomming "1", objects becomming "[Object]" and arrays becomming "[Array(*n*)]". Now, take those strings and return which is greater, as a string. That means "11" comes before "5", since comparing strings is done one character at a time (the first character of "11", "1", comes before "5"). Likewise, "[Object]" comes before "a" because "\[" comes before "a". It's not perfect, but the decision is defensible. One must choose *some* algorithm. 
 
-In our case, we are comparing technology objects that have a name and a count. The default compare function is not sufficient for us. Each of our objects will be converted to "[Object]" and the compare will show each as being identical. The upshot of this is that or sorting will be essentially unpredictable (this is not quite true, but since we do not know the particulars of the sorting algorithm being used it might as well be). So, we want to write a comapre function that will return whether the first technology's name is less than, equal to, or greater than, the second technology's name (by returning -1, 0, or 1). [The documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) for `sort()` has great examples of performing sorts on objects. Remember, your sort needs to be caase in-sensisitive. Think about how you can massage your input so that you can compare the names without respect to their case.
+In our case, we are comparing technology objects that have a name and a count. The default compare function is not sufficient for us. Each of our objects will be converted to "[Object]" and the compare will show each as being identical. The upshot of this is that or sorting will be essentially unpredictable (this is not quite true, but since we do not know the particulars of the sorting algorithm being used it might as well be). So, we want to write a compare function that will return whether the first technology's name is less than, equal to, or greater than, the second technology's name (by returning -1, 0, or 1). [The documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) for `sort()` has great examples of performing sorts on objects. Remember, your sort needs to be caase in-sensitive. Think about how you can massage your input so that you can compare the names without respect to their case.
 
 Once you have a compare function defined you can call the sort function:
 
@@ -77,10 +79,22 @@ const compare = function(a,b) {
 response.data.sort(compare);
 ```
 
-Your compare function can be defined anywhere a function is defined (globally, on your React component, as a local variable, or inline). Where you put it is a matter of style, though you do need to be certain it is in scope for wherever you wish to invoke `sort()`. Since this compare function only needs to be referenced in one place, I recommend defining it as a local variable, or inline. I often prefer to not define such functions inline so that my code is more easily read, but many developers will put it inline.
+Your compare function can be defined anywhere a function is defined (in your module globally, on your React component, as a local variable, or inline). Where you put it is a matter of style, though you do need to be certain it is in scope for wherever you wish to invoke `sort()`. Since this compare function only need be referenced in one place, I recommend defining it as a local variable, or inline. I often prefer to not define such functions inline so that my code is more easily read, but many developers will put it inline.
 
-###Filtering
-Text to follow...
+### Filtering
 
-[Let us know](https://github.com/un-loop/PollProject/blob/master/PART4.md) when you are done.
+As previously mentioned, *filtering* is *searching* in-place on an existing data set. The idea of a filter conjures the following image:
+
+Data Source --> selection screen --> Output data
+
+The key takeaways here are:
+- Every item in the output was present in the data source
+- Every item in the output matches a list of criteria in the "screen" or "filter"
+- Zero or more items may be missing in the output (or "filtered")
+
+Just like `sort()` there is a convenient method on the Array prototype to do this: [`filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+### View
+
+
 
