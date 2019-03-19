@@ -102,7 +102,7 @@ This particular example might be used in a react component, where we have a minV
 
 In the end, you will chain this together with your sort to have something like:
 
-'''
+```
 const compare = function(a,b) {
   //my code
 }
@@ -112,7 +112,7 @@ const filter = function(item) {
  }
  
 const data = response.data.filter(filter).sort(compare);
-'''
+```
 
 Be aware that `filter()`, unlike `sort()` will return a new array, leaving the original array unchanged.
 
@@ -121,27 +121,28 @@ Be aware that `filter()`, unlike `sort()` will return a new array, leaving the o
 A view on a set of data is a series of operations that transform that set into a desired form for easy manipulation or consumption. That is a mouthful. Let's break that down. 
 
 *A view ... is a series of operations*
-What kind of operations? Well, we've already seen a couple. Sorting is one. Filtering is another. Both of these operations transform our data into a desired form (listed in alphabetical order, starting with the letter "J", etc). Another common operation used in a view, and the last we will introduce here is "projection". A projection is an operation that takes sequential objects from a list, converts them to a new value, and creates a new list. You have likely used projections throughout your javascript code without realizing it. [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) on the Array prototype will perform a projection. `map()` takes a callback which instructs map how to create a new element from the existing one.
+
+What kind of operations? Well, we've already seen a couple. Sorting is one. Filtering is another. Both of these operations transform our data into a desired form (listed in alphabetical order, starting with the letter "J", etc). Another common operation used in a view, and the last we will introduce here is "projection". A projection is an operation that takes sequential objects from a list, converts each separately to a new value, and creates a new list. You have likely used projections throughout your javascript code without realizing it. [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) on the Array prototype will perform a projection. `map()` takes a callback which instructs map how to create a new element from the existing one.
 
 ```
 const walls = [{width: 4}, {width: 6}, {width: 8}];
-const projection = walls.map( (wall) => new {width: ``${wall.width} inches``};
+const projection = walls.map( (wall) => new {width: `${wall.width} inches`};
 ```
 
 The above is a projection which takes an array of walls and "projects" each item into a more consumable format. In this case, we are projecting our items into a form ready for display. In the polling app, we do not forsee a need to use a projection on your data, we are simply illustrating the concept for the sake of completeness.
 
 You may wish to introduce the concept of a view in your polling app to encapsulate your data manipulation. Is such encapsulation necessary? No. Is it helpful? Maybe. Most developers would not encapsulate the calls to `filter()` and `sort()` here. Personally, whenever I have three or more related concerns, I will encapsulate. If I have one, I do not. If I have two, it depends on their complexity. In this case, I like moving this into a separate method because it also move all references to our component state and/or props that we will need to reference for the filter.
 
-'''
+```
 function getView(data) {
     //define my filter and compare functions, may reference this.state, this.props
-    
+
     return data.filter(filter).sort(compare);
 }
 
 //later
 const data = this.getView(response.data);
-'''
+```
 
 Furthermore, once we make this leap to encapsulate this functionality, we open up or code for future extension, say, creating a [HOC](https://reactjs.org/docs/higher-order-components.html) that takes in a function as a parameter that will create a view. If you don't understand HOCs, don't worry. This is just to say that whenever we encapsulate a bit of functionality, we open up an opportunity to abstract it later.
 
