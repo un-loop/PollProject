@@ -38,7 +38,7 @@ It is note immediately clear when looking at the list that Angular and Angular 2
 
 ### Sorting
 
-At some point in frontend React code, you are making a call to the database to retrieve a list of technologies. You make some call (via axios), and retrieve a responsed from the server, which has a "data" property containing the deserialized data that the server sent in the body of the response. That is, axios read the JSON in the body of the response, parsed it, and turned it into javascript objects for your convenience, putting this data onto the "data" property. Since the call to the polling app rest API returns an array, axios will supply a javascript array of objects.
+At some point in frontend React code, you are making a call to the database to retrieve a list of technologies. You make some call (via axios), and retrieve a responsed from the server, which has a "data" property containing the deserialized data that the server sent in the body of the response. That is, axios read the JSON in the body of the response, parsed it, and turned it into javascript objects for your convenience, putting this data onto the "data" property. Since the call to the polling app's Rest API returns an array, axios will supply a javascript array of objects.
 
 This is good luck. Javascript has supplied a [sort method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) on the Array prototype that is exactly what we need. Take a look at the documentation. There are a couple of items of note. Firstly, sort() performs an in-place sorting of the array. Let's look at the following example:
 ```
@@ -46,7 +46,7 @@ var numArr = [3,1,2];
 numArr.sort();
 console.log(numArr);
 ```
-When we run this code, we will see the value `[1, 2, 3]` logged to the console. What this tells us is that numArr was changed from the call to sort(). In addition, sort() will return the array, so that the sort method can conveniently be used in an expression. To continue the example:
+When we run this code, we will see the value `[1, 2, 3]` logged to the console. What this tells us is that numArr was changed from the call to `sort()`. In addition, `sort()` will return the array, so that the sort method can conveniently be used in an expression. To continue the example:
 
 ```
 var numArr = [3,1,2];
