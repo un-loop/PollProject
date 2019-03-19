@@ -57,11 +57,23 @@ will cause `[1, 2, 3]` to be logged to the console.
 
 The second item of note is how the sort is performed. The sort method expects to be given a compare function. A compare function is a simple function `function compare(a,b) { // some code }` that will return whether "a" is less than, greater than, or equal to "b". It is only by using this compare function that `sort()` is able to place the items in the array in order.  "But," you object, "I don't have to give sort a compare function! It works fine without one!" That is half true. You do not have to give a compare function to sort, but that doesn't mean it doesn't have one. If a compare function is not supplied, sort will use a default function.
 
-`sort()` is defined on the array prototype and is written in the most generic way possible to be useful to all kinds of arrays. I might have an array of numbers, an array of strings, an array of objects. `sort()`, with a compare function, can handle all of these. Since this is Javascript, I can even have a array of mixed types, as in `let mixedArr = [3, "2", {one: true}]`. The developers who originally wrote the `sort()` function recognized that it would be a real pain if every time you called `sort()` you had to tell how to compare every type of array. They also recognized that it would be impossible to know beforehand how to sort every type. After all, it may be sorting some very special objects that only the end developer knows how to sort or that may be dependent on your program state. So, they struck a compromise. They developed a compare function that was "good enough" and that would handle the most cases.
+`sort()` is defined on the array prototype and is written in the most generic way possible to be useful to all kinds of arrays. I might have an array of numbers, an array of strings, an array of objects. `sort()`, with a compare function, can handle all of these. Since this is Javascript, I can even have an array of mixed types, as in `let mixedArr = [3, "2", {one: true}]`. The developers who originally wrote the `sort()` function recognized that it would be a real pain if every time you called `sort()` you had to tell how to compare every type of array. They also recognized that it would be impossible to know beforehand how to sort every type. After all, it may be sorting some very special objects that only the end developer knows how to sort or that may be dependent on your program state. So, they struck a compromise. They developed a compare function that was "good enough" and that would handle the most cases.
 
 The compromised they arrived at is this: Take the two items in the array being compared and turn them into strings, with 1 becomming "1", objects becomming "Object" and arrays becomming "Array". Now, take those strings and return which is greater, as a string. That means "11" comes before "5", since comparing strings is done one character at a time (the first character of "11", "1", comes before "5").
 
 In our case, we are comparing technology objects that have a name and a count. We want to write a comapre function that will return whether the first technology's name is less than, equal to, or greater than, the second technology's name (by returning -1, 0, or 1). [The documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) for `sort()` has great examples of sorting on object. Remember, your sort needs to be caase in-sensisitive. Think about how you can massage your input so that you can compare the names without respect to their case.
+
+Once you have a compare function defined you can call the sort function:
+
+```
+const compare = function(a,b) {
+  //my code
+}
+
+response.data.sort(compare);
+```
+
+Your compare function can be defined anywhere a function is defined (globally, on your React component, as a local variable, or inline). Where you put it is a matter of style. Since this compare function only needs to be referenced in one place, I recommend defining it as a local variable, or inline. I often prefer to not define inline so that my code is more easily read, but many developers will put it inline.
 
 ###Filtering
 Text to follow...
