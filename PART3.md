@@ -92,7 +92,7 @@ The key takeaways here are:
 - Every item in the output matches a list of criteria in the "screen" or "filter"
 - Zero or more items may be missing in the output (or "filtered")
 
-Just like `sort()` there is a convenient method on the Array prototype to do this: [`filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). `filter()' takes a callback which is to "test" whether or not an item in the data source "passes" the filter. The documentation has excellent examples how to craft this callback. One such example would be by passing an arrow function as a callback:
+Just like `sort()` there is a convenient method on the Array prototype to do this: [`filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). `filter()` takes a callback which is to "test" whether or not an item in the data source "passes" the filter. The documentation has excellent examples how to craft this callback. One such example would be by passing an arrow function as a callback:
 
 ```
 myData.filter( (item) => item.value >= this.state.minValue);
