@@ -63,6 +63,7 @@ At this point, you can head over to the debug view and inspect your variables to
 
 ![inspecting values](./assets/inspect.png "inspect values")
 
+This is just the briefest of introductions. Please refer to the [documentation](https://code.visualstudio.com/Docs/editor/debugging) for further information.
 
 ## Koa
 
