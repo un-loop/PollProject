@@ -38,6 +38,7 @@ Once your database service is running, you can start your app via ```npm start``
 
 Let's take a moment to talk about the directory structure of the PollingApp project.
 
+![project files](./assets/projectfiles.png "project files")
 
 You have the following top-level directories:
 * .vscode
