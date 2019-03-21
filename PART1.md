@@ -23,3 +23,21 @@ We use React, so let's create a React application. It sounds like we need a list
 **styling bonus**: You can try using [plus circle](https://fontawesome.com/icons/plus-circle?style=solid) and [minus circle](https://fontawesome.com/icons/minus-circle?style=solid) icons from [font-awesome](https://fontawesome.com/start) for some nice icons for the increment and decrement. If you have another icon solution you like (glyphicons, material-ui), feel free to try that instead.
 
 [Let us know](https://github.com/un-loop/PollProject/blob/master/PART2.md) when you are finished.
+
+# Notes
+
+Your task will involve modifying your fork of the PollProject repository. If you take a look at the existing code, you will see that it is a simple app to show a list of cats and add cats to the list. You can start your app via
+```
+npm start
+```
+
+to start listening on port 3000. Browse to http://localhost:3000 to view the app an you should see something like:
+
+npm start
+debugging
+
+
+## Project Structure
+
+
+
