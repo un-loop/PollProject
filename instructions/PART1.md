@@ -63,7 +63,7 @@ You have the following top-level directories:
   
 * server
 
-  Contains the server side code. server.js is our server that node will run to start our website. dbcontext.js is a file configures the azure sdk to connect to our db and provides our database code with the objects needed to communicate with the sdk. You do not need to modify this file. We also have two subdirectories here.
+  Contains the server side code. server.js is our server that node will run to start our website. dbcontext.js is a file that configures the azure sdk to connect to our db and provides our database code with the objects needed to communicate with the sdk. You do not need to modify this file. We also have two subdirectories here.
   * entities
   
     Contains information about our entities (in this case, cats) so that we can interface with DynamoDB. We will talk more about this later.
