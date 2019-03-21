@@ -15,4 +15,4 @@ Add an input box that allows for additional technologies to be added to the poll
 **styling bonus**:
 See if you can make the input control look nice by having a nice boundary between the input area and the scrolling tech list. A [blurred drop shadow](https://www.w3schools.com/css/css3_shadows.asp) of a few pixels on the input area will give a nice transition.
 
-[Let us know](https://github.com/un-loop/PollProject/blob/master/PART3.md) when you are done.
+[Let us know](https://github.com/un-loop/PollProject/blob/master/instructions/PART3.md) when you are done.

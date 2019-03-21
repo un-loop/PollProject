@@ -22,7 +22,7 @@ We use React, so let's create a React application. It sounds like we need a list
 
 **styling bonus**: You can try using [plus circle](https://fontawesome.com/icons/plus-circle?style=solid) and [minus circle](https://fontawesome.com/icons/minus-circle?style=solid) icons from [font-awesome](https://fontawesome.com/start) for some nice icons for the increment and decrement. If you have another icon solution you like (glyphicons, material-ui), feel free to try that instead.
 
-[Let us know](https://github.com/un-loop/PollProject/blob/master/PART2.md) when you are finished.
+[Let us know](https://github.com/un-loop/PollProject/blob/master/instructions/PART2.md) when you are finished.
 
 # Notes
 

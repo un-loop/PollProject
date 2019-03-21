@@ -19,4 +19,4 @@ already exists before allowing one to be added. If it exists, we should display 
 **bonus styling**: use [css transitions](https://www.w3schools.com/css/css3_transitions.asp) to "slide" the error message in. Have the error message component have a background and border
 so that is stands out from the remainder of the app. Add an icon or "x" to allow the message to be dismissed.
 
-[Let us know](https://github.com/un-loop/PollProject/blob/master/PART5.md) when you are done.
+[Let us know](https://github.com/un-loop/PollProject/blob/master/instructions/PART5.md) when you are done.
