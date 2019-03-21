@@ -1,35 +1,5 @@
-const table = require("../database");
-const cats = new table(this);
-
-/*[
-    {
-        name: "Jasper",
-        owner: "Kitty Kally",
-        age: 1
-    },
-    {
-        name: "Daisy",
-        owner: "Katherine Mao",
-        age: 8
-    }
-];*/
-
-exports.schema = {
-        TableName : "Cats",
-        BillingMode: "PROVISIONED",
-        KeySchema: [
-            { AttributeName: "name", KeyType: "HASH"}
-        ],
-        AttributeDefinitions: [
-                { AttributeName: "name", AttributeType: "S" }
-            ],
-        ProvisionedThroughput: {
-            ReadCapacityUnits: 5,
-            WriteCapacityUnits: 5
-        }
-    };
-
-exports.key = "name";
+const entity = require("../entities/cats");
+const cats = entity.table;
 
 exports.index = function *(next){
     yield next;

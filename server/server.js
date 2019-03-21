@@ -4,8 +4,8 @@ const serve = require('koa-static');
 const Resource = require('koa-resource-router');
 const path = require('path');
 const body = require('koa-bodyparser');
-const wrapper = require('./middleware-wrapper')
-const decode = require('./decode-params')
+const wrapper = require('koa-middleware-wrapper')
+const decode = require('koa-decode-params')
 
 const bodyMiddleware = wrapper(body()); //need to wrap because koa-resource-router expects a generator pattern
                                         //middleware, whereas koa-bodyparser provides an async pattern

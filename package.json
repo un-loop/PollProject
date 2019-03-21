@@ -5,9 +5,9 @@
   "main": "./server/server.js",
   "scripts": {
     "build": "webpack --config client/webpack.config.js",
-    "build:watch": "nodemon --watch client --watch components --ignore bundle.js --ignore bundle.js.map --exec npm run build",
+    "build:watch": "nodemon --watch client --watch components --ignore bundle.js --ignore bundle.js.map -e * --exec npm run build",
     "server": "node server/server.js",
-    "server:watch": "nodemon --watch server --exec npm run server",
+    "server:watch": "nodemon --watch server -e * --exec npm run server",
     "start": " npm-run-all --parallel build:watch server:watch"
   },
   "repository": {
@@ -27,12 +27,15 @@
     "axios": "^0.18.0",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
+    "koa-decode-params": "^1.0.0",
+    "koa-middleware-wrapper": "^1.0.0",
     "koa-mount": "^4.0.0",
     "koa-resource-router": "^0.4.0",
     "koa-static": "^5.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-material-ui-form-validator": "^2.0.3",
+    "unloop-database-dynamo": "^1.0.2",
     "webpack": "^4.29.0"
   },
   "devDependencies": {

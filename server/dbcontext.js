@@ -5,7 +5,7 @@ const config = {
     httpOptions: { timeout: 30000, connectTimeout: 15000 }
 };
 
-module.DbContext = class {
+class DbContext {
     constructor(
         endpoint = process.env.npm_package_config_dynamoEndpoint,
         region = process.env.npm_package_config_dynamoRegion
@@ -21,6 +21,6 @@ module.DbContext = class {
     }
 }
 
-module.exports = new module.DbContext("http://localhost:8000", "us-west-2");
+module.exports = new DbContext("http://localhost:8000", "us-west-2");
 
-
+module.exports.DbContext = DbContext;
