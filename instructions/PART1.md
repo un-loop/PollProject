@@ -26,18 +26,17 @@ We use React, so let's create a React application. It sounds like we need a list
 
 # Notes
 
-Your task will involve modifying your fork of the PollProject repository. If you take a look at the existing code, you will see that it is a simple app to show a list of cats with an option to add cats to the list. You can start your app via
-```
-npm start
-```
+Your task will involve modifying your fork of the PollProject repository. If you take a look at the existing code, you will see that it is a simple app to show a list of cats with an option to add cats to the list. 
 
-to start listening on port 3000. Browse to http://localhost:3000 to view the app an you should see something like:
+The first step you will need to take before running the app is ensuring you local DynamoDB instance is running. DynamoDB is a database service from amazon that runs in the cloud. We have not setup up a cloud service for this example, so you will need to have a service that you run locally on your machine to test against. Not to mention, testing against a local DB instance when developing is a very common development practice, even when you do have a cloud database. You do not want to do your testing against a production database, and it's often expensive to have a test database in the cloud for every developer who will be developing your app. What this means is that you will need to be sure that your database service is started before you run your server. If you followed the previous instructions on setting up DynamoDB to run locally, this should be as simple as starting up a script.
+
+Once your database service is running, you can start your app via ```npm start``` to start listening on port 3000. Browse to http://localhost:3000 to view the app an you should see something like:
 
 ![screenshot of default site](./assets/CatsRule.png "cats rule")
 
-## Starting DB Instance
-
 ## Project Structure
+
+Let's take a brief moment to talk about the directory structure of the PollingApp project.
 
 ## Debugging
 
