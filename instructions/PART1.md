@@ -26,18 +26,36 @@ We use React, so let's create a React application. It sounds like we need a list
 
 # Notes
 
-Your task will involve modifying your fork of the PollProject repository. If you take a look at the existing code, you will see that it is a simple app to show a list of cats and add cats to the list. You can start your app via
+Your task will involve modifying your fork of the PollProject repository. If you take a look at the existing code, you will see that it is a simple app to show a list of cats with an option to add cats to the list. You can start your app via
 ```
 npm start
 ```
 
 to start listening on port 3000. Browse to http://localhost:3000 to view the app an you should see something like:
 
-npm start
-debugging
+![screenshot of default site](./assets/CatsRule.png "cats rule")
 
+## Starting DB Instance
 
 ## Project Structure
 
+## Debugging
 
+Debugging is an important part of software development. Visual Studio Code has a built-in [debugger](https://code.visualstudio.com/Docs/editor/debugging) to help you inspect your code for defects. It allows you to step through your code, line-by-line, inspect the state of your variables, set breakpoints, change the values of variables during execution, and more. Typically, when using the debugger, you will tell the debugger to "attach" to you server, so that it knows what code it should manage. Firstly, you will need to select the configuartion to use, "Attach by Process ID":
+![screenshot of selecting launch cofiguration](./assets/launchconfiguration.png "Attach by Process ID")
+
+Once selected, you can press the green "play" arrow to attach to your process. You will need to have started your server via ```npm start``` for this to work.
+
+The process you want to select is the one that reads "node server/server.js".
+![selecting process](./assets/attach.png "Select process")
+
+Once attached, you can set a breakpoint and start inspecting your code. Let's say that we are interested in inspecting the cats that are about to be returned when our front end code makes a request to our API. You can open up the file in your project at server/resources/cats.js and set a breakpoint at line 7 by clicking in the space just to the left of the line number "7".
+![setting breakpoint](./assets/breakpoint.png "Select breakpoint")
+
+If you now refresh you page at "http://localhost:3000" so that the page will request for the list of cats, your breakpoint will be hit.
+![hitting breakpoint](.assets/breakpointhit.png "Hit breakpoint")
+
+
+
+## Rest API
 
