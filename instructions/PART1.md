@@ -36,8 +36,40 @@ Once your database service is running, you can start your app via ```npm start``
 
 ## Project Structure
 
-Let's take a brief moment to talk about the directory structure of the PollingApp project.
+Let's take a moment to talk about the directory structure of the PollingApp project.
 
+
+You have the following top-level directories:
+* .vscode
+
+  Contains configuration files relevant to Visual Studio. You do not need to pay attention to this folder.
+
+* client
+
+  Contains the client facing code. Everything in this folder (except the webpack) is served as a static site. Since this is a single page app, we only have index.html, index.jsx, and bundle.js files.
+  
+* components
+
+  Contains all of the React components we will use on the site.
+  
+* instructions
+
+  Contains the files needed for the instructions that you are reading now. There is no code here.
+  
+* node_modules
+
+  Contains all of the downloaded modules we depend on.
+  
+* server
+
+  Contains the server side code. server.js is our server that node will run to start our website. dbcontext.js is a file configures the azure sdk to connect to our db and provides our database code with the objects needed to communicate with the sdk. You do not need to modify this file. We also have two subdirectories here.
+  * entities
+  
+    Contains information about our entities (in this case, cats) so that we can interface with DynamoDB. We will talk more about this later.
+  * resources
+  
+    Contains the code to implement a resource in our Rest API. More about this later when we talk about Rest APIs.
+   
 ## Debugging
 
 Debugging is an important part of software development. Visual Studio Code has a built-in [debugger](https://code.visualstudio.com/Docs/editor/debugging) to help you inspect your code for defects. It allows you to step through your code, line-by-line, inspect the state of your variables, set breakpoints, change the values of variables during execution, and more. Typically, when using the debugger, you will tell the debugger to "attach" to you server, so that it knows what code it should manage. Firstly, you will need to select the configuartion to use, "Attach by Process ID":
@@ -63,6 +95,8 @@ At this point, you can head over to the debug view and inspect your variables to
 ![inspecting values](./assets/inspect.png "inspect values")
 
 This is just the briefest of introductions. Please refer to the [documentation](https://code.visualstudio.com/Docs/editor/debugging) for further information.
+
+## Webpack
 
 ## Koa
 
