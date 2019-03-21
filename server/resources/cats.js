@@ -3,7 +3,8 @@ const cats = entity.table;
 
 exports.index = function *(next){
     yield next;
-    this.body = yield cats.getAll();
+    let result = yield cats.getAll();
+    this.body = result;
   };
 
   /**
@@ -11,7 +12,7 @@ exports.index = function *(next){
    */
   exports.show = function *(next){
     yield next;
-    var result = yield cats.get(this.params.cat);
+    let result = yield cats.get(this.params.cat);
 
     if (!result) {
         this.status = 404;
