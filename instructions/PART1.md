@@ -56,9 +56,16 @@ Once attached, you can set a breakpoint and start inspecting your code. Let's sa
 ![setting breakpoint](./assets/breakpoint.png "Select breakpoint")
 
 If you now refresh you page at "http://localhost:3000" so that the page will request for the list of cats, your breakpoint will be hit.
+
 ![hitting breakpoint](./assets/breakpointhit.png "Hit breakpoint")
 
+At this point, you can head over to the debug view and inspect your variables to see what is the current value of the result variable. This is what we are about to set to the response body with the current statement ```this.body = result;```, and we can see that it contains the cats we expect.
 
+![inspecting values](./assets/inspect.png "inspect values")
+
+
+## Koa
 
 ## Rest API
 
+## Koa Resource Router
