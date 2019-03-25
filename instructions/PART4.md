@@ -7,7 +7,7 @@ Great job! Professor Smith has been getting great poll results from the app.
 ## Requirements
 
 Professor Smith has been getting great results, but has noticed a few concerns. Firstly, she accidentally deleted a technology and lost her results! 
-Secondly, she mistakenly added a technology twice and is since then is having some difficulty using the app.
+Secondly, she mistakenly added a technology twice and has since been having some difficulty using the app.
 
 ## Implementation
 
