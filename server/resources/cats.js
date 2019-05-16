@@ -1,53 +1,54 @@
-const entity = require("../entities/cats");
-const cats = entity.table;
 
-exports.index = function *(next){
-    yield next;
-    let result = yield cats.getAll();
-    this.body = result;
-  };
 
-  /**
-   * GET cat
-   */
-  exports.show = function *(next){
-    yield next;
-    let result = yield cats.get(this.params.cat);
+module.exports = (entity) => {
+    const cats = entity.table;
 
-    if (!result) {
-        this.status = 404;
-        this.body = 'Not Found';
-    } else {
-        this.body = result;
-    }
-  };
+    return {
+        index: async function(ctx, next) {
+            await next;
+            let result = await cats.getAll();
+            ctx.body = result;
+        },
+        show: async function(ctx, next){
+            await next;
+            let result = await cats.get(ctx.params.cat);
 
-  /**
-   * POST a new cat.
-   */
-  exports.create = function *(next){
-    yield next;
-    if (!this.request.body || !this.request.body.name) this.throw(400, '.name required');
-    let cat = (({name, owner, age}) => ({name, owner, age}))(this.request.body);
-    yield cats.create(cat);
-    this.status = 201;
-    this.body = 'added!';
-  };
+            if (!result) {
+                ctx.status = 404;
+                ctx.body = 'Not Found';
+            } else {
+                ctx.body = result;
+            }
+        },
+        create: async function(ctx, next) {
+            await next;
+            if (!ctx.request.body || !ctx.request.body.name) ctx.throw(400, '.name required');
+            let cat = (({name, owner, age}) => ({name, owner, age}))(ctx.request.body);
+            await cats.create(cat);
+            ctx.status = 201;
+            ctx.body = 'added!';
+        }
 
-  /**
-   *
-   * DELETE a cat
-   *
-   * exports.destroy = function*(next) {
-   *   //implement me!
-   * }
-   */
+        /**
+         *
+         * DELETE a cat
+         *
+         * destroy: async function(next) {
+         *   //implement me!
+         * }
+         */
 
-    /**
-   *
-   * UPDATE a cat
-   *
-   * exports.update = function*(next) {
-   *   //implement me!
-   * }
-   */
+            /**
+         *
+         * UPDATE a cat
+         *
+         * update = async function(next) {
+         *   //implement me!
+         * }
+         */
+   }
+}
+
+module.exports.permissions = {
+    default: [] //open permissions
+}
