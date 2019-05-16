@@ -36,7 +36,7 @@ Once your database service is running, you can start your app via ```npm start``
 
 ## Project Structure
 
-Let's take a moment to talk about the directory structure of the PollingApp project.
+Let's take a moment to talk about the directory structure of the PollProject project.
 
 ![project files](./assets/projectfiles.png "project files")
 
@@ -63,7 +63,7 @@ You have the following top-level directories:
   
 * server
 
-  Contains the server side code. server.js is our server that node will run to start our website. dbcontext.js is a file configures the azure sdk to connect to our db and provides our database code with the objects needed to communicate with the sdk. You do not need to modify this file. We also have two subdirectories here.
+  Contains the server side code. server.js is our server that node will run to start our website. dbcontext.js is a file that configures the azure sdk to connect to our db and provides our database code with the objects needed to communicate with the sdk. You do not need to modify this file. We also have two subdirectories here.
   * entities
   
     Contains information about our entities (in this case, cats) so that we can interface with DynamoDB. We will talk more about this later.
@@ -97,9 +97,16 @@ At this point, you can head over to the debug view and inspect your variables to
 
 This is just the briefest of introductions. Please refer to the [documentation](https://code.visualstudio.com/Docs/editor/debugging) for further information.
 
+
+
 ## Webpack
 
+The PollProject (as do many React apps) uses [webpack](https://webpack.js.org/) to bundle and compile our [jsx](https://reactjs.org/docs/introducing-jsx.html) files. With webpack, we specify an entry point and a destination and webpack will 
+collect up all of our script dependencies for our entry point, compile our jsx files with babel, and put all of our js into one file (called a "bundle" since all the js is "bundled" into one file). In our case, the entry point is client/Index.jsx, and the output is client/bundle.js. If you rename the Index.jsx file, or create a new entry point, you will need to add this entry point to the webpack.config.js. However, you should be able to complete the Polling App without making any changes here, as long as the Index.jsx file is not removed or renamed.
+
 ## Koa
+
+
 
 ## Rest API
 

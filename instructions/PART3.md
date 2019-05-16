@@ -17,7 +17,7 @@ she doesn't care about capitalization and she wants all related technologies to 
 case. This, then, should be a case-insensitive sort. 
 
 We also suggested adding a filter, and she though this was a great idea. There should be a filter toggle (can be a button) that will initiate a "filter mode". While
-filtering, any text entered into the input box will serve as a live filter on the technology list. Also, all other functionality (add, delete, increment, decrement) should
+filtering, any text entered into the input box will serve as a live filter on the technology list. The filter will show everything that starts with the entered text.  Also, all other functionality (add, delete, increment, decrement) should
 still function while the filter is active. Since she doesn't care about casing, the filter should be case-insensitive as well. There should be a "clear" button that shows when the filter is active that will turn filtering off.
 
 [Let us know](https://github.com/un-loop/PollProject/blob/master/instructions/PART4.md) when you are done.
