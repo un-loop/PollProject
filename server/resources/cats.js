@@ -1,5 +1,3 @@
-
-
 module.exports = (entity) => {
     const cats = entity.table;
 
