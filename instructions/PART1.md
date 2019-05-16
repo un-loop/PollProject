@@ -132,7 +132,50 @@ By way of naming convention, any package name beginning with _koa-_ indicates a 
 
 ## Rest API
 
+PollProject uses a [REST API](https://restfulapi.net/) for client browsers to interact with data. At a very high level, a REST API defines resources and an interface for retrieving and changing those resources. In our case, our resources are _cats_. The resources are accessed via a uri. For our cats, they are specified by the string _http://localhost:3000/api/cats/<id>_. Our REST API is provided by the package [unloop-resource-builder](https://www.npmjs.com/package/unloop-resource-builder), which is built upon [koa-resource-router](https://github.com/alexmingoia/koa-resource-router). koa-resource-router defines a mapping from [HTTP request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) to resource actions as follows:
+```
+GET     /resource           ->  index
+GET     /resource/new       ->  new
+POST    /resource/          ->  create
+GET     /resource/:id       ->  show
+GET     /resource/:id/edit  ->  edit
+PUT     /resource/:id       ->  update
+DELETE  /resource/:id       ->  destroy
+```
+If you take a look at our cats resource file at _server/resources/cats.js_, you can see the implementation of a few of these resource actions.
+    
+```
+module.exports = (entity) => {
+    const cats = entity.table;
 
+    return {
+        index: async function(ctx, next) {
+            await next;
+            let result = await cats.getAll();
+            ctx.body = result;
+        },
+        show: async function(ctx, next){
+            await next;
+            let result = await cats.get(ctx.params.cat);
+
+            if (!result) {
+                ctx.status = 404;
+                ctx.body = 'Not Found';
+            } else {
+                ctx.body = result;
+            }
+        },
+        create: async function(ctx, next) {
+            await next;
+            if (!ctx.request.body || !ctx.request.body.name) ctx.throw(400, '.name required');
+            let cat = (({name, owner, age}) => ({name, owner, age}))(ctx.request.body);
+            await cats.create(cat);
+            ctx.status = 201;
+            ctx.body = 'added!';
+        }
+   }
+}
+```
 
 ## curl
 
