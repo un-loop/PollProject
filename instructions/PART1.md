@@ -178,13 +178,13 @@ module.exports = (entity) => {
 ```
 Here, we define an export for our module that is an arrow function
 
-```javascipt
+```javascript
 module.exports = (entity) => {
     //some code
 }
 ```
 
-This arrow function takes a parameter `entity` that will define how to operate on our cats. Sepecifically, this is our module defined at _server/entity/cats.js_. From this _entity_, we can access the `get`, `create`, `getAll` operations that we need in order to interface with the database. The arrow function then _returns_ an object that defines our `index`, `show', `create`, `destroy`, etc _resource_ actions. This object, which contains the resource action mappings will be used by our resource router to know that a `GET` request coming in to our resource at `http://localhost:3000/api/cats` should map to our index resource action defined here.
+This arrow function takes a parameter `entity` that will define how to operate on our cats. Sepecifically, this is our module defined at _server/entity/cats.js_. From this _entity_, we can access the `get`, `create`, `getAll` operations that we need in order to interface with the database. The arrow function then _returns_ an object that defines our `index`, `show`, `create`, `destroy`, etc _resource_ actions. This object, which contains the resource action mappings will be used by our resource router to know that a `GET` request coming in to our resource at `http://localhost:3000/api/cats` should map to our index resource action defined here.
 
 ```javascript
 async function(ctx, next) {
@@ -198,22 +198,36 @@ So now, when we perform our get request on cats, this function will be executed,
 
 There are a number of aspects concerning rest APIs that are not touched on here. There are many good descriptions online about rest APIs. In particular, we want to be mindful of the (Response Codes)(https://restfulapi.net/http-status-codes/) that our API is returning. In our example, we are using the following codes:
 - 200 OK
+
   This is the default response code from Node and indicates the request was processed successfully
+
 - 201 CREATED
+
   This indicates that we created a resource (used in our `create` resource action)
+
 - 400 BAD REQUEST
+
   Indicates a malformed request (In our case, a required parameter was not specified when creating)
+
 - 404 NOT FOUND
+
   The resource wasn't found (used in our `show` action when the cat id requested didn't exist).
 
 In addition to these explicit responses, our server may send the following responses from middleware:
 - 403 FORBIDDEN
+
   From koa-auth-wrapper when the user does not have sufficient access to the requested action
+
 - 404 NOT FOUND
+
   From koa-resource-router when there a resource type is requested that is not registered
+
 - 405 METHOD NOT ALLOWED
+
   From koa-resource-router when there is not a mapped resource action for the given HTTP Method and URL
+
 - 500 (Internal Server Error)
+
   From koa when we have an exception during processing the request
   
 You may also want to use status code 204 NO CONTENT when performing operations (such as a delete) that return successfully, but there is no content to return to the client.
