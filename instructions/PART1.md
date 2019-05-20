@@ -263,4 +263,37 @@ Let's take a moment to break down this last command. `-X` is a command _flag_ th
 
 ## Asyncronous Code
 
+Asyncronous code is code that is marked to run, but complete at a later time, and literally means "not synchronous". Node provides a number of methods in [Node Core](https://nodejs.org/en/knowledge/getting-started/what-is-node-core-verus-userland/) that provide access to [blocking I/O](https://nodejs.org/de/docs/guides/blocking-vs-non-blocking/). Take, for example:
 
+```javascript
+const fs = require('fs');
+fs.readFile('/file.md', (err, data) => {
+  if (err) throw err;
+});
+```
+
+`readFile` is an _asynchronous_ function. We tell it the file to read ('file.md') and the function will tell the operating system to load it. The operating system says, "Ok, I'll tell you when I'm done."
+
+### Callbacks
+It would be rather pointless to read a file and do nothing with the data we read. We clearly need a way to tell the operating system what we want to do once the file is read. We do this via a [callback](https://nodejs.org/en/knowledge/getting-started/control-flow/what-are-callbacks/). A callback is simply defining a piece of code to run, that will be passed to another method and called at some point during that methods execution. In our case, we passed a callback to `readFile`, and readFile's [API](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) says that the callback passed will be called once the read is complete and that it will be passed to arguments, `err` and `data`. `err` will contain any [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) that occured, and `data` will contain the data read from the file.
+
+This is all well and good, but what happense when I need to _write_ the content I just read to another file? Let's take a look:
+
+```javascript
+const fs = require('fs');
+fs.readFile('file1.md', (err, data) => {
+    if (err) throw err;
+    fs.writeFile('file2.md', (err, data) => {
+        if (err) throw err;
+        
+        //do something
+    });
+});
+```
+
+You'll note that we inserted a call to [writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) from within our callback, and provided yet another callback to this invocation. Why stop here? Maybe we need to read a second file after writing _file2.md_. You can see that very quickly these chains of callbacks get very unwieldy and difficult to read. This is know as [callback hell](http://callbackhell.com/). We need a better way to manage our asynchronous code. Lucky for us, NodeJs provdies several.
+
+
+### Promises
+
+### Async/Await
