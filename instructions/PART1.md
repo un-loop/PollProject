@@ -294,7 +294,7 @@ fs.readFile('file1.md', (err, data) => {
 You'll note that we inserted a call to [writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) from within our callback, and provided yet another callback to this invocation. Why stop here? Maybe we need to read a second file after writing _file2.md_. You can see that very quickly these chains of callbacks get very unwieldy and difficult to read. This is known as [callback hell](https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/). We need a better way to manage our asynchronous code. Lucky for us, NodeJs provdies several.
 
 ### async libraries
-There are a number of NPM packages that can handle [async control flow](https://www.oreilly.com/library/view/you-dont-know/9781491905241/ch04.html), noteable among them is [Async](https://github.com/caolan/async). I am not going to go into these (or patterns using generators) since they have mostly fallen out of fashion for Promises and async/await.
+There are a number of NPM packages that can handle [async control flow](https://www.oreilly.com/library/view/you-dont-know/9781491905241/ch04.html), noteable among them is [Async](https://github.com/caolan/async). I am not going to go into these (or patterns using generators) since they have mostly fallen out of fashion in favor of Promises and async/await.
 
 ### Promises
 A promise is a way to encapsulate a bit of code that should run in an asynchronous fashion. Let's re-write our code above by moving our operations into separate functions that return promises.
@@ -346,7 +346,55 @@ readFilePromise(firstFile)
     .catch((err) => console.log(err));
 ```
 
-Now, our code is starting to look quite manageable.
+Now, our code is starting to look quite manageable. We can improve it further, however. But before we do, let's break this down and look more closely at what is going on here. We will take a look first at our original definition of `readFilePromise`.
 
+```javascript
+function readFilePromise(filename) {
+    return new Promise( (resolve, reject) => {
+         fs.readFile(filename, (err, data) => {
+            return (err) ? reject(err) : resolve(data);
+         }
+    });
+}
+```
+
+`readFilePromise` returns a Promise object. It does this by instantiating a new instance of Promise via `new` and invoking the constructor. The [promise constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) takes a 
+single argument, an executor. The executor is a function that defines how to execute the code in question and takes two parameters: _resolve_ and _reject_. _resolve_ and _reject_ are callbacks themselves which the executor can call to _resolve_ or _reject_ the Promise. To _reject_ a promise means to mark the promise as failed. To resolve a promise means to mark the promise as completed. Our executor is given by:
+
+```javascript
+(resolve, reject) => {
+         fs.readFile(filename, (err, data) => {
+            return (err) ? reject(err) : resolve(data);
+         }
+    }
+```
+
+This executor will invoke readFile, and set a callback to be invoked once readFile completes. The executor will then return, leaving the promise in a `pending` state. Later, when readFile completes, readFile will invoke the callback. The callback will inspect the err parameter to determine whether an error occured. If it did, the promise is rejected with the Error, and if no error occurred, the promise is resolved _with_ the data read from the file. To resolve _with_ data as in `resolve(data)` means to (1) mark the promise as completed, and (2) set the _result_ of the promise to `data`. This `result` can be inspected by other code later on.
+
+So, the `readFilePromise` function returns a promise. Once we have a promise, we can use control flow methods to define the "flow" of our execution, namely _what_ to execute _when_. Two control flow methods available on the Promise prototype are `.then()` and `.catch()`. `.then()` takes two callback parameters, also known as _continuations_ since they declare how to _continue_ execution after a promise has finished. The first parameter declares what to execute when the promise is _resolved_--the second, when it is _rejected_. Here, we only use the first parameter. `.catch()` is a control flow method that will take an executor function to run whenever an promise is rejected. It is equivalent to calling `.then(null, callback)`.
+
+
+```javascript
+const fs = require('fs');
+const util = require('util');
+
+const readFilePromise = util.promisify(fs.readFile);
+const writeFilePromise = util.promisify(fs.writeFile);
+
+const readIt = (filename) => () => readFilePromise(filename);
+const writeIt = (filename) => (data) => writeFilePromise(filename);
+const logIt = (data) => console.log(data);
+
+readFilePromise(firstFile)
+    .then(writeIt(secondFile))
+    .then(readIt(thirdFile))
+    .then(logIt);
+    .catch(logIt);
+```
+
+
+
+resolve/reject
+Let's talk now a little more in depth about those `.then(()` and `.catch()` methods I glossed over before.
 
 ### Async/Await
