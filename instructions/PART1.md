@@ -291,9 +291,62 @@ fs.readFile('file1.md', (err, data) => {
 });
 ```
 
-You'll note that we inserted a call to [writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) from within our callback, and provided yet another callback to this invocation. Why stop here? Maybe we need to read a second file after writing _file2.md_. You can see that very quickly these chains of callbacks get very unwieldy and difficult to read. This is known as [callback hell](http://callbackhell.com/). We need a better way to manage our asynchronous code. Lucky for us, NodeJs provdies several.
+You'll note that we inserted a call to [writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) from within our callback, and provided yet another callback to this invocation. Why stop here? Maybe we need to read a second file after writing _file2.md_. You can see that very quickly these chains of callbacks get very unwieldy and difficult to read. This is known as [callback hell](https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/). We need a better way to manage our asynchronous code. Lucky for us, NodeJs provdies several.
 
+### async libraries
+There are a number of NPM packages that can handle [async control flow](https://www.oreilly.com/library/view/you-dont-know/9781491905241/ch04.html), noteable among them is [Async](https://github.com/caolan/async). I am not going to go into these (or patterns using generators) since they have mostly fallen out of fashion for Promises and async/await.
 
 ### Promises
+A promise is a way to encapsulate a bit of code that should run in an asynchronous fashion. Let's re-write our code above by moving our operations into separate functions that return promises.
+
+```javascript
+const fs = require('fs');
+
+function readFilePromise(filename) {
+    return new Promise( (resolve, reject) => {
+         fs.readFile(filename, (err, data) => {
+            return (err) ? reject(err) : resolve(data);
+         }
+    });
+}
+
+function writeFilePromise(filename, data) {
+    return new Promise( (resolve, reject) => {
+         fs.writeFile(filename, (err, data) => {
+            return (err) ? reject(err) : resolve(data);
+         }
+    });
+}
+```
+_Now, wait a minute_, you might say, _this is hardly easier than what we had before_. Well, declaring a promise is not where their power is. It's in using them to establish control flow. Consider the following:
+
+```javascript
+readFilePromise(firstFile)
+    .then((data) => (datawriteFilePromise(secondFile, data))
+    .then(() => readFilePromise(thirdFile))
+    .then((data) => console.log(data));
+    .catch((err) => console.log(err));
+```
+
+*This* code is much easier to handle. It is self-documenting. We will read _firstFile_, write _secondFile_ with the content of _firstFile_, read _thirdFile_, then write the results of _thirdFile_ to the console. If there is an error at any point, we will stop our exectution and log the error to the console. We do this via the [.then()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) and [.catch()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch) methods of the [Promise prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/prototype). Most importantly, it allows for [separation of concerns](https://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/). We can write code that says how to perform our individual actions, and we can write code that chains together the actions we need to take and those two distinct concerns are kept separate.
+
+Moreover, we do not have to write the methods readFilePromise and writeFilePromise. There is a module that can do this for use. As long as our function we need to turn into a promise (or "promisify") follows standard node conventions, we can use any number of modules to do this. Take `[promisify](https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util_promisify_original)` from `util` in Node Core, for example.
+
+```javascript
+const fs = require('fs');
+const util = require('util');
+
+const readFilePromise = util.promisify(fs.readFile);
+const writeFilePromise = util.promisify(fs.writeFile);
+
+readFilePromise(firstFile)
+    .then((data) => (datawriteFilePromise(secondFile, data))
+    .then(() => readFilePromise(thirdFile))
+    .then((data) => console.log(data));
+    .catch((err) => console.log(err));
+```
+
+Now, our code is starting to look quite manageable.
+
 
 ### Async/Await
