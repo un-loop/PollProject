@@ -259,8 +259,7 @@ with response:
 Finally, to `create` a cat:
 `curl -X POST -H "Content-Type: application/json" -d '{"name":"Furball","owner": "Coughs A. Lot", "age": 7}' http://localhost:3000/api/cats`
 
-Let's take a moment to break down this last command. `-X` is a command _flag_ that tells curl that we want to specify an action method, and that method is POST. The `-H` flag will allow us to specify HTTP [headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers). In this case, we set the[ _Content-type_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) header to "application/json". This tells the server that we are sending it [JSON](https://www.w3schools.com/js/js_json_intro.asp) data. The flag `-d` tells curl what data we actually want to send. Here, we are given a JSON string representing the cat we want 
-
+Let's take a moment to break down this last command. `-X` is a command _flag_ that tells curl that we want to specify an action method, and that method is POST. The `-H` flag will allow us to specify HTTP [headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers). In this case, we set the[ _Content-type_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) header to "application/json". This tells the server that we are sending it [JSON](https://www.w3schools.com/js/js_json_intro.asp) data. The flag `-d` tells curl what data we actually want to send. Here, we are given a JSON string representing the cat we want to create. Lastly, we specify the URL of the resource.
 
 ## Asyncronous Code
 
