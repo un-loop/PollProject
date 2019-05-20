@@ -194,7 +194,7 @@ async function(ctx, next) {
 }
 ```
 
-So now, when we perform our get request on cats, this function will be executed, and we will call cats.getAll() and set the result on the body. Note that `await next;` here is code that will cause the remaining middleware to finish first (since the line comes first) before we call the DB and set the result.
+So now, when we perform our get request on cats, this function will be executed, and we will call `cats.getAll()` and set the result on the body. Note that `await next;` here is code that will cause the remaining middleware to finish first (since the line comes first) before we call the DB and set the result.
 
 There are a number of aspects concerning rest APIs that are not touched on here. There are many good descriptions online about rest APIs. In particular, we want to be mindful of the (Response Codes)(https://restfulapi.net/http-status-codes/) that our API is returning. In our example, we are using the following codes:
 - 200 OK
@@ -232,6 +232,36 @@ In addition to these explicit responses, our server may send the following respo
   
 You may also want to use status code 204 NO CONTENT when performing operations (such as a delete) that return successfully, but there is no content to return to the client.
 
-## curl
+### Testing
+While we could test our API by navigating our website and observing the results of our various operations that we perform through the UI, it is far more efficient and reliable to test our API in isolation. That is, if I were to navigate to my app at _http://localhost:3000/api/cats_ and notice that a cat was missing from the list, how could I determine the cause of the issue?
 
-## Koa Resource Router
+![screenshot of default site](./assets/CatsRule.png "cats rule")
+
+Is that data missing from the database? Is the api failing to retrieve it? Maybe the UI is doing paging and simply failing to show me a "next" button. We can quickly separate out UI concerns from our data layer by performing direct queries to our API. Below are a few tools to use to do this testing.
+
+#### cURL
+[cURL](https://curl.haxx.se/) is software that is available on many [\*Nix](https://en.wikipedia.org/wiki/Unix-like) systems (Unix, Linux, OS X) and similiar environments such as git-bash. cURL ("client URL") serves as a client for making requests to servers using various protocols, and receiving resonposes. [Bash](https://www.gnu.org/software/bash/) provides a command named "curl" which serves as a command-line interface (CLI) to this software. We can use this command to make HTTP requests and receive responses from a web server. We can send requests using any [HTTP method](https://www.restapitutorial.com/lessons/httpmethods.html) (GET, POST, PUT, DELETE, etc) and send/receive structured data.
+
+At its most simple we would use curl as follows (from a bash terminal):
+`curl http://localhost:3000/api/cats`
+
+and recieve the response:
+> '\[{"name":"Jasper","owner":"Kitty Kally","age":1},{"name":"Daisy","owner":"Katherine Mao","age":8},{"name":"Meow","owner":"Mr. Fickle","age":"5"}]'
+
+This command will cause a GET request to be sent to the given URL. Of course, your server (and local dynamoDB instance must be running to receive this response).
+
+To `show` an individual cat we would use:
+`curl http://localhost:3000/api/cats/Jasper`
+
+with response:
+> `{"name":"Jasper","owner":"Kitty Kally","age":1}`
+
+Finally, to `create` a cat:
+`curl -X POST -H "Content-Type: application/json" -d '{"name":"Furball","owner": "Coughs A. Lot", "age": 7}' http://localhost:3000/api/cats`
+
+Let's take a moment to break down this last command. `-X` is a command _flag_ that tells curl that we want to specify an action method, and that method is POST. The `-H` flag will allow us to specify HTTP [headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers). In this case, we set the[ _Content-type_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) header to "application/json". This tells the server that we are sending it [JSON](https://www.w3schools.com/js/js_json_intro.asp) data. The flag `-d` tells curl what data we actually want to send. Here, we are given a JSON string representing the cat we want 
+
+
+## Asyncronous Code
+
+
