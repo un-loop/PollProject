@@ -373,6 +373,23 @@ This executor will invoke readFile, and set a callback to be invoked once readFi
 
 So, the `readFilePromise` function returns a promise. Once we have a promise, we can use control flow methods to define the "flow" of our execution, namely _what_ to execute _when_. Two control flow methods available on the Promise prototype are `.then()` and `.catch()`. `.then()` takes two callback parameters, also known as _continuations_ since they declare how to _continue_ execution after a promise has finished. The first parameter declares what to execute when the promise is _resolved_--the second, when it is _rejected_. Here, we only use the first parameter. `.catch()` is a control flow method that will take an executor function to run whenever an promise is rejected. It is equivalent to calling `.then(null, callback)`.
 
+**Currying**
+
+I would like to take a little space for a detour into [Currying](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983), which is a particularly useful pattern to use with Promises. Currying is a central technique used in [Functional Programmin](https://www.geeksforgeeks.org/functional-programming-paradigm/). Javascript borrows many things from functional programming, and NodeJs patterns extend this even further. Currying is a way to take a function accepting multiple parameters, and turn it into a _composed_ series of functions each taking a single parameter. Take, for instance, the following:
+
+```javascript
+function multiply(n, m) {
+    return n * m;
+}
+```
+
+If we were to apply currying to our `multiply` function, we would have:
+
+```javascript
+const multiply = (n) => (m) => n * m;
+```
+
+We could then invoke this through a series of invocations, supplying a parameter at a time, as in `multiply(n)(m)`. Why do this? Namely, _higer order functions_ and _partial application_.
 
 ```javascript
 const fs = require('fs');
@@ -385,7 +402,8 @@ const readIt = (filename) => () => readFilePromise(filename);
 const writeIt = (filename) => (data) => writeFilePromise(filename);
 const logIt = (data) => console.log(data);
 
-readFilePromise(firstFile)
+Promise.resolve()
+    .then(readIt(firstFile))
     .then(writeIt(secondFile))
     .then(readIt(thirdFile))
     .then(logIt);
@@ -394,7 +412,5 @@ readFilePromise(firstFile)
 
 
 
-resolve/reject
-Let's talk now a little more in depth about those `.then(()` and `.catch()` methods I glossed over before.
 
 ### Async/Await
