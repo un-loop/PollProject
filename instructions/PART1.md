@@ -291,7 +291,7 @@ fs.readFile('file1.md', (err, data) => {
 });
 ```
 
-You'll note that we inserted a call to [writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) from within our callback, and provided yet another callback to this invocation. Why stop here? Maybe we need to read a second file after writing _file2.md_. You can see that very quickly these chains of callbacks get very unwieldy and difficult to read. This is know as [callback hell](http://callbackhell.com/). We need a better way to manage our asynchronous code. Lucky for us, NodeJs provdies several.
+You'll note that we inserted a call to [writeFile](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) from within our callback, and provided yet another callback to this invocation. Why stop here? Maybe we need to read a second file after writing _file2.md_. You can see that very quickly these chains of callbacks get very unwieldy and difficult to read. This is known as [callback hell](http://callbackhell.com/). We need a better way to manage our asynchronous code. Lucky for us, NodeJs provdies several.
 
 
 ### Promises
