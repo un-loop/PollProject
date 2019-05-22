@@ -340,7 +340,7 @@ const readFilePromise = util.promisify(fs.readFile);
 const writeFilePromise = util.promisify(fs.writeFile);
 
 readFilePromise(firstFile)
-    .then((data) => (datawriteFilePromise(secondFile, data))
+    .then((data) => writeFilePromise(secondFile, data))
     .then(() => readFilePromise(thirdFile))
     .then((data) => console.log(data));
     .catch((err) => console.log(err));
@@ -375,7 +375,7 @@ So, the `readFilePromise` function returns a promise. Once we have a promise, we
 
 **Currying**
 
-I would like to take a little space for a detour into [Currying](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983), which is a particularly useful pattern to use with Promises. Currying is a central technique used in [Functional Programmin](https://www.geeksforgeeks.org/functional-programming-paradigm/). Javascript borrows many things from functional programming, and NodeJs patterns extend this even further. Currying is a way to take a function accepting multiple parameters, and turn it into a _composed_ series of functions each taking a single parameter. Take, for instance, the following:
+I would like to take a little space for a detour into [Currying](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983), which is a particularly useful pattern to use with Promises. Currying is a central technique used in [Functional Programming](https://www.geeksforgeeks.org/functional-programming-paradigm/). Javascript borrows many things from functional programming, and NodeJs patterns extend this even further. Currying is a way to take a function accepting multiple parameters, and turn it into a _composed_ series of functions each taking a single parameter. Take, for instance, the following:
 
 ```javascript
 function multiply(n, m) {
@@ -389,7 +389,62 @@ If we were to apply currying to our `multiply` function, we would have:
 const multiply = (n) => (m) => n * m;
 ```
 
-We could then invoke this through a series of invocations, supplying a parameter at a time, as in `multiply(n)(m)`. Why do this? Namely, _higer order functions_ and _partial application_.
+We could then invoke this through a series of invocations, supplying a parameter at a time, as in `multiply(n)(m)`. Why do this? Namely, _partial application_ and _higer order functions_.
+
+**Partial Application**
+To _partially apply_ a function means to fix some (but not all) of a curried functions parameters. To extend or previous multiplication examply, we could create a partial application called `double`:
+
+```javascript
+const double = multiply(2);
+
+console.log(double(3)); // outputs 6
+console.log(double(5)); // outputs 10
+```
+
+**Higher Order Function**
+A [_higher order function_](https://eloquentjavascript.net/05_higher_order.html) is a function that takes a function as an input and/or returns a function as output. We could use our previous multiply example in a _higher order function_ that logs our operation, taking in a log function.
+
+```javascript
+const loggedMultiply = (logger) => (n) => (m) => {
+    let result = multiply(n)(m);
+    logger(`multiply(n)(m) returned ${result}`);
+    return result;
+}
+'''
+
+And invoke it like so:
+``javascript
+loggedMultiply(console.log)(2)(2); //logs 4 to the console
+```
+
+And we can combine currying with this higher order function like so:
+```javascript
+const consoleLoggedDouble = loggedMultiply(console.log)(2);
+consoleLoggedDouble(3); //logs 6 to the console
+```
+
+**conclusion**
+This brings us back to our previous code where we where reading and writing files asynchronously, in sequence. Firstly, note that the call to util.promisify:
+```javascript
+const writeFilePromise = util.promisify(fs.writeFile);
+```
+
+We can see that `promisify` is actually a _Higher Order Function_. It takes a function `fs.writeFile` as input and returns a Promise that wraps the invocation of that function. Now, we can write a curried function that invokes writeFilePromise:
+```javascript
+const writeIt = (filename) => (data) => writeFilePromise(filename, data);
+```
+
+To see what this does, consider what happens when we partially apply `writeIt` with the filename parameter. Once _filename_ is fixed, we have a function that takes a data parameter and invokes `writeFilePromise`. But this is exactly what we gave as the executor function to `.then()`:
+
+```javascript
+    .then((data) => writeFilePromise(secondFile, data))
+```
+
+This means we could re-write this as:
+```javascript
+    .then(writeIt(secondFile))
+```
+And extending this pattern we end up with:
 
 ```javascript
 const fs = require('fs');
@@ -399,7 +454,7 @@ const readFilePromise = util.promisify(fs.readFile);
 const writeFilePromise = util.promisify(fs.writeFile);
 
 const readIt = (filename) => () => readFilePromise(filename);
-const writeIt = (filename) => (data) => writeFilePromise(filename);
+const writeIt = (filename) => (data) => writeFilePromise(filename, data);
 const logIt = (data) => console.log(data);
 
 Promise.resolve()
