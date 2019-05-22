@@ -413,7 +413,7 @@ const loggedMultiply = (logger) => (n) => (m) => {
 ```
 
 And invoke it like so:
-``javascript
+```javascript
 loggedMultiply(console.log)(2)(2); //logs 4 to the console
 ```
 
