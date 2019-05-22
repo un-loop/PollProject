@@ -410,7 +410,7 @@ const loggedMultiply = (logger) => (n) => (m) => {
     logger(`multiply(n)(m) returned ${result}`);
     return result;
 }
-'''
+```
 
 And invoke it like so:
 ``javascript
