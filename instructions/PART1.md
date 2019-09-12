@@ -2,7 +2,7 @@
 
 ## Background
 
-We have an important event coming up. There will be a lot of technical people at this event, both employers and job seekers. We would like to get a sense of what technologies people are using in the field, so we get a better idea of what technologies we want to teach and use at XYZ Univeristy. We love web development, so let's create a web app to do this!
+We have an important event coming up. There will be a lot of technical people at this event, both employers and job seekers. We would like to get a sense of what technologies people are using in the field, so we get a better idea of what technologies we want to teach and use at XYZ University. We love web development, so let's create a web app to do this!
 
 ## Your Assignment
 
@@ -115,7 +115,7 @@ collect up all of our script dependencies for our entry point, compile our jsx f
 
 - [unloop-resource-builder](https://www.npmjs.com/package/unloop-resource-builder)
 
-  Builder for koa-resource-router using unloop's resorce/entity pattern. Access middleware by invoking `resource.middleware()`
+  Builder for koa-resource-router using unloop's resource/entity pattern. Access middleware by invoking `resource.middleware()`
 
 - [unloop-static-router](https://www.npmjs.com/package/unloop-static-router)
 
