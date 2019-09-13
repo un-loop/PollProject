@@ -90,7 +90,7 @@ If you now refresh you page at "http://localhost:3000" so that the page will req
 
 ![hitting breakpoint](./assets/breakpointhit.png "Hit breakpoint")
 
-At this point, you can head over to the debug view and inspect your variables to see what is the current value of the result variable. This is what we are about to set to the response body with the current statement ```this.body = result;```, and we can see that it contains the cats we expect.
+At this point, you can head over to the debug view and inspect your variables to see what is the current value of the ```result``` variable. This is what we are about to set to the response body with the current statement ```this.body = result;```, and we can see that it contains the cats we expect.
 
 ![inspecting values](./assets/inspect.png "inspect values")
 
