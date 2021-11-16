@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/core": "^7.4.4",
     "@babel/runtime": "^7.4.4",
-    "aws-sdk": "^2.456.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.18.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
